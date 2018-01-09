@@ -1,0 +1,35 @@
+{
+  "name": "wp-pluginner/framework",
+  "homepage": "https://github.com/wp-pluginner/framework",
+  "type": "project",
+  "description": "Core Code for WP Pluginner",
+  "keywords": [ "wordpress", "laravel", "framework", "plugins", "wp-pluginner" ],
+  "license": "MIT",
+  "authors": [
+      {
+          "name": "Pijar Aji Pratama",
+          "email": "info.aplikasi@gmail.com",
+          "homepage": "https://www.pijarajip.com"
+      }
+  ],
+  "require": {
+    "php": ">=5.6.4",
+    "league/flysystem": "^1.0",
+    "illuminate/cache": "5.4.*",
+    "illuminate/config": "5.4.*",
+    "illuminate/container": "5.4.*",
+    "illuminate/cookie": "5.4.*",
+    "illuminate/database": "5.4.*",
+    "illuminate/encryption": "5.4.*",
+    "illuminate/events": "5.4.*",
+    "illuminate/filesystem": "5.4.*",
+    "illuminate/http": "5.4.*",
+    "illuminate/routing": "5.4.*",
+    "illuminate/view": "5.4.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "WpPluginner\\Framework\\": "src/"
+    }
+  }
+}
