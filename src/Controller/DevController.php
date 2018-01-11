@@ -134,10 +134,12 @@ class DevController extends Controller
      */
     public function flushCache($path)
     {
-        if ($path == 'sessions' && $this->plugin->bound('session')) {
-            return true;
-        } elseif (isset($this->attributes['paths'][$path])) {
-            return $this->plugin['files']->cleanDirectory($this->attributes['paths'][$path]);
+        if (isset($this->attributes['paths'][$path])) {
+            $clean = $this->plugin['files']->cleanDirectory($this->attributes['paths'][$path]);
+            if ($clean) {
+                $this->plugin['files']->put($this->attributes['paths'][$path] . '/.gitignore',"*\n!.gitignore\n");
+            }
+            return $clean;
         }
         return false;
     }
