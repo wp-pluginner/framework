@@ -106,23 +106,28 @@ class Loader
 
     public function pluginActivationHook()
     {
-        $this->plugin->options->delta();
-        include_once $this->plugin->wp_property_path . '/hook/activation.php';
+        $this->plugin->option()->delta();
+        require_once $this->plugin->wp_property_path . '/hook/activation.php';
 
     }
 
     public function pluginDeactivationHook()
     {
-         include_once $this->plugin->wp_property_path . '/hook/deactivation.php';
+         require_once $this->plugin->wp_property_path . '/hook/deactivation.php';
     }
 
     public function pluginInitAction()
     {
         try {
+
+            if ($slug = $this->plugin['config']->get('plugin.slug',false)) {
+                do_action($slug . '_action_init_before', $this->plugin);
+            }
+
             if ($slug = $this->plugin['config']->get('plugin.development',false)) {
                 with(new DeveloperModeProvider($this->plugin))->register();
             }
-    		if ($this->plugin['config']->get('plugin.route_enabled')) {
+    		if ($this->plugin->bound('router')) {
                 $this->plugin->loadRoutes();
                 if(!is_admin()) {
                     add_action('template_include', function ($template) {

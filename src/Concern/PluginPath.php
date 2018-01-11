@@ -19,11 +19,6 @@ trait PluginPath
         return $this->pluginPath . 'config';
     }
 
-    public function getDatabasePathAttribute()
-    {
-        return $this->pluginPath . 'database';
-    }
-
     public function getPublicPathAttribute()
     {
         return $this->pluginPath . 'public';

@@ -25,56 +25,52 @@ class DeveloperModeProvider extends ServiceProvider {
 			]);
 		}
 		$this->plugin['plugin.admin']->addBarNode(
-			$slug,
-			$namespace,
-			null,
-			'?page=' . $slug . '&tab=config',
-			null,
-			array('class' => 'fooBar'),
+			array(
+				'id' => $slug,
+				'title' => $namespace,
+				'href' => '?page=' . $slug . '&tab=config',
+				'meta' => array('class' => 'fooBar')
+			),
 			100
 		);
-		if ($this->plugin['config']->get('plugin.cache_enabled')) {
-			$this->plugin['plugin.admin']->addBarNode(
-				$slug . '_flush_objects',
-				'Flush Objects',
-				$slug,
-				'#',
-				null,
-				array(
+		if ($this->plugin->bound('cache')) {
+			$this->plugin['plugin.admin']->addBarNode(array(
+				'id' => $slug . '_flush_objects',
+				'title' => 'Flush Objects',
+				'parent' => $slug,
+				'meta' => array(
 					'class' => $slug . '_flush_objects'
 				)
-			);
+			));
 		}
-		if ($this->plugin['config']->get('plugin.session_enabled')) {
-			$this->plugin['plugin.admin']->addBarNode(
-				$slug . '_flush_sessions',
-				'Flush Sessions',
-				$slug,
-				'#',
-				null,
-				array(
+		if ($this->plugin->bound('session')) {
+			$this->plugin['plugin.admin']->addBarNode(array(
+				'id' => $slug . '_flush_sessions',
+				'title' => 'Flush Sessions',
+				'parent' => $slug,
+				'href' => '#',
+				'meta' => array(
 					'class' => $slug . '_flush_sessions'
 				)
-			);
+			));
 		}
 		if ($this->plugin['config']->get('view.compiled')) {
-			$this->plugin['plugin.admin']->addBarNode(
-				$slug . '_flush_views',
-				'Flush Views',
-				$slug,
-				'#',
-				null,
-				array(
+			$this->plugin['plugin.admin']->addBarNode(array(
+				'id' => $slug . '_flush_views',
+				'title' => 'Flush Views',
+				'parent' => $slug,
+				'href' => '#',
+				'meta' => array(
 					'class' => $slug . '_flush_views'
 				)
-			);
+			));
 		}
-		$this->plugin['plugin.admin']->addBarNode(
-			$slug . '_config',
-			'Configuration',
-			$slug,
-			admin_url('admin.php?page=' . $slug . '&tab=config')
-		);
+		$this->plugin['plugin.admin']->addBarNode(array(
+			'id' => $slug . '_config',
+			'title' => 'Configuration',
+			'parent' => $slug,
+			'href' => admin_url('admin.php?page=' . $slug . '&tab=config')
+		));
 
 
 		//Add Framework Cache Ajax Script to Footer

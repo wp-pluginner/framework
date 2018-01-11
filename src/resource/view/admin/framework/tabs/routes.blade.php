@@ -1,5 +1,5 @@
 <h2>Routing Details</h2>
-<table class="widefat illumine-table-scrollable">
+<table class="widefat wp_pluginner-table-scrollable">
     <thead>
     <tr>
         <th class="row-title">
@@ -49,4 +49,3 @@
 
     </tbody>
 </table>
-

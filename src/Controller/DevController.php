@@ -13,10 +13,10 @@ class DevController extends Controller
 
     /**
      * AdminController constructor.
-     * @param $attributes (PanelAttributes)
+     * @param $attributes (AdminMenuAttributes)
      *
-     * $this->attributes['pageTitle'],
-     * $this->attributes['menuTitle'],
+     * $this->attributes['page_title'],
+     * $this->attributes['menu_title'],
      * $this->attributes['capability'],
      * $this->attributes['slug'],
      */
@@ -52,7 +52,6 @@ class DevController extends Controller
             $this->attributes['paths']['routes'] = $this->plugin->config()->get('routes.compiled');
             $this->attributes['sizes']['routes'] = $this->calcDiskSize($this->attributes['paths']['routes']);
         }
-
         if ($this->plugin->bound('cache')) {
             $this->attributes['paths']['objects'] = $this->plugin->config()->get('cache.stores.file.path');
             $this->attributes['sizes']['objects'] = $this->calcDiskSize($this->attributes['paths']['objects']);

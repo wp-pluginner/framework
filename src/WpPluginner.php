@@ -26,6 +26,7 @@ class WpPluginner extends Container
         $this->pluginFile = $pluginFile;
         $this->pluginPath = trailingslashit(plugin_dir_path($pluginFile));
         $this->pluginUri = trailingslashit(plugin_dir_url($pluginFile));
+        $this->metaData = $this->getPluginMetaData();
         $this->bindExceptions();
     }
 
@@ -191,7 +192,17 @@ class WpPluginner extends Container
         if (!function_exists('get_plugin_data')) {
             require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
         }
-        $this->metaData = get_plugin_data( $this->pluginFile );
+        return get_plugin_data( $this->pluginFile );
+    }
+
+    public function meta($key = null)
+    {
+        if (is_null($key)) {
+            return $this->metaData;
+        } elseif(isset($this->metaData[$key])) {
+            return $this->metaData[$key];
+        }
+        return null;
     }
 
     public function __get( $name )

@@ -7,30 +7,30 @@
 
 <style type="text/css">
     /* No Need to Enqueue, Inline is Faster */
-    .illumine-list-group {
+    .wp_pluginner-list-group {
         padding: 0;
         margin: 0;
         box-shadow: 0 1px 2px #ccc;
     }
 
-    .illumine-list-group li.active a {
+    .wp_pluginner-list-group li.active a {
         background: #0073aa;
         color: #fff;
     }
 
-    .illumine-list-group li {
+    .wp_pluginner-list-group li {
         padding: 0;
         margin: 0;
         border-bottom: 1px solid #eee;
     }
 
-    .illumine-list-group li:last-of-type {
+    .wp_pluginner-list-group li:last-of-type {
         overflow: hidden;
         border: none;
     }
 
-    .illumine-list-group li a,
-    .illumine-list-group li h6 {
+    .wp_pluginner-list-group li a,
+    .wp_pluginner-list-group li h6 {
         display: block;
         padding: 0 20px;
         line-height: 35px;
@@ -39,21 +39,21 @@
         background-color: #f9f9f9;
     }
 
-    .illumine-list-group li h6 {
+    .wp_pluginner-list-group li h6 {
         font-size: 15px;
     }
 
     @media (max-width: 782px) {
 
-        .illumine-table-scrollable {
+        .wp_pluginner-table-scrollable {
             overflow-x: auto;
             display: inline-block;
             width: auto;
             max-width: 100%;
         }
 
-        .illumine-table-scrollable > * > tr > th,
-        .illumine-table-scrollable > * > tr > td {
+        .wp_pluginner-table-scrollable > * > tr > th,
+        .wp_pluginner-table-scrollable > * > tr > td {
             white-space: nowrap;
             display: table-cell;
         }

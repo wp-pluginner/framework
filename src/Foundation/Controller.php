@@ -6,10 +6,11 @@ use WpPluginner\Framework\Loader;
 use WpPluginner\Framework\Support\View;
 
 use Illuminate\Support\Str;
+use Illuminate\Routing\Controller as BaseController;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-abstract class Controller
+abstract class Controller extends BaseController
 {
     protected $plugin,$attributes;
 

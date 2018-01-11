@@ -2,23 +2,12 @@
 
 namespace WpPluginner\Framework\Factory;
 
-class AdminFactory
+use WpPluginner\Framework\Foundation\Factory;
+
+use Symfony\Component\Debug\Exception\FatalThrowableError;
+
+class AdminFactory extends Factory
 {
-
-    protected $this;
-    private $plugin;
-
-
-    /**
-     * Constructor
-     * Add Plugin Container
-     * @param $plugin \WpPluginner\Framework\WpPluginner
-     * @return void
-     */
-    public function __construct($plugin)
-    {
-        $this->plugin = $plugin;
-    }
 
     /**
      * addMenu
@@ -46,25 +35,7 @@ class AdminFactory
                 $attributes['capability'],
                 $attributes['menu_slug'],
                 function () use ( $attributes ){
-
-                    if (!$attributes['controller']) {
-                        return '';
-                    }
-
-                    $plugin = $this->plugin; //needed for dev controller
-                    list( $controller, $method ) = explode( '@', $attributes['controller'] );
-                    $this->plugin->when($controller)
-                        ->needs('$namespace')
-                        ->give(function(){
-                            return $this->plugin['config']->get('plugin.namespace');
-                        });
-
-                    $this->plugin->when($controller)
-                        ->needs('$attributes')
-                        ->give($attributes);
-
-                    $instance = $this->plugin->make($controller);
-                    return $instance->$method();
+                    return $this->executeController($attributes['controller'], $attributes);
                 },
                 $attributes['icon_url'],
                 $attributes['position']
@@ -98,21 +69,7 @@ class AdminFactory
                 $attributes['capability'],
                 $attributes['menu_slug'],
                 function () use ( $attributes ){
-
-                    $plugin = $this->plugin; //needed for dev controller
-                    list( $controller, $method ) = explode( '@', $attributes['controller'] );
-                    $this->plugin->when($controller)
-                        ->needs('$namespace')
-                        ->give(function(){
-                            return $this->plugin['config']->get('plugin.namespace');
-                        });
-
-                    $this->plugin->when($controller)
-                        ->needs('$attributes')
-                        ->give($attributes);
-
-                    $instance = $this->plugin->make($controller);
-                    return $instance->$method();
+                    return $this->executeController($attributes['controller'], $attributes);
                 }
             );
         }, $priority);
@@ -123,66 +80,23 @@ class AdminFactory
      * addBarNode
      * @return void
      */
-    public function addBarNode(
-        $id,
-        $title,
-        $parent,
-        $href,
-        $group = null,
-        $meta = null,
-        $priority = 100
-    )
+    public function addBarNode( $attributes = array(), $priority = 100 )
     {
-        add_action('admin_bar_menu', function ($wpAdminBar) use (
-            $id,
-            $title,
-            $parent,
-            $href,
-            $group,
-            $meta,
-            $priority
-        ) {
+        $defaultAttributes = [
+            'id' => false,
+            'title' => false,
+            'parent' => false,
+            'href' => false,
+            'group' => false,
+            'meta' => array(),
+        ];
 
-            $wpAdminBar->add_node(array(
-                'id' => $id,
-                'title' => $title,
-                'parent' => $parent,
-                'href' => $href,
-                'group' => $group,
-                'meta' => $meta
-            ));
+        $attributes = array_merge($defaultAttributes,$attributes);
+
+        add_action('admin_bar_menu', function ($wpAdminBar) use ($attributes) {
+
+            $wpAdminBar->add_node($attributes);
 
         }, $priority);
-    }
-
-    /**
-     * addWidget
-     * @return void
-     */
-    public function addWidget(
-        $id,
-        $name,
-        $controllerClass
-    )
-    {
-        add_action('wp_dashboard_setup', function () use (
-            $id,
-            $name,
-            $controllerClass
-        ) {
-
-            wp_add_dashboard_widget(
-                $id,
-                $name,
-                function () use ($id, $name, $controllerClass) {
-                    $plugin = $this->plugin;
-                    $this->plugin->when($controllerClass)
-                        ->needs('$attributes')
-                        ->give(compact('id', 'name', 'plugin'));
-
-                    return $this->plugin->make($controllerClass);
-                }
-            );
-        });
     }
 }

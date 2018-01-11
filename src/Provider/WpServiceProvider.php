@@ -5,6 +5,7 @@ namespace WpPluginner\Framework\Provider;
 use WpPluginner\Framework\Foundation\ServiceProvider;
 
 use WpPluginner\Framework\Factory\AdminFactory;
+use WpPluginner\Framework\Factory\AjaxFactory;
 use WpPluginner\Framework\Factories\ShortcodeFactory;
 use WpPluginner\Framework\Factories\WidgetFactory;
 
@@ -29,8 +30,14 @@ class WpServiceProvider extends ServiceProvider {
 				return new AdminFactory($this->plugin);
 			});
 		}
+		//Bind WpAjax Class
+		if (!$this->app->bound('plugin.ajax')) {
+			$this->app->singleton('plugin.ajax', function () {
+				return new AjaxFactory($this->plugin);
+			});
+		}
 		//Loop Wordpress Directories
-		foreach (array('shortcode', 'action', 'filter', 'hook', 'widget', 'menu') as $directoryName) {
+		foreach (array('shortcode', 'action', 'filter', 'hook', 'widget', 'admin', 'ajax') as $directoryName) {
 			//Require All Php Files
 			$files = $this->plugin['files']->glob($this->plugin->wp_property_path . "/{$directoryName}/*.php");
 

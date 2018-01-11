@@ -3,32 +3,53 @@
 namespace WpPluginner\Framework\Concern;
 
 use Illuminate\Support\HtmlString;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 trait ContainerTrait
 {
     public function request()
     {
-        return $this['request'];
+        if ($this->bound('request')) {
+            return $this['request'];
+        } else {
+            throw new \Exception('Illuminate Request Disabled');
+        }
     }
 
     public function response()
     {
-        return $this['response'];
+        if ($this->bound('response')) {
+            return $this['response'];
+        } else {
+            throw new \Exception('Illuminate Response Disabled');
+        }
     }
 
     public function session()
     {
-        return $this['session'];
+        if ($this->bound('session')) {
+            return $this['session'];
+        } else {
+            throw new \Exception('Illuminate Session Disabled');
+        }
     }
 
     public function config()
     {
-        return $this['config'];
+        if ($this->bound('config')) {
+            return $this['config'];
+        } else {
+            throw new \Exception('Illuminate Config Disabled');
+        }
     }
 
     public function storage()
     {
-        return $this['filesystem'];
+        if ($this->bound('filesystem')) {
+            return $this['filesystem'];
+        } else {
+            throw new \Exception('Illuminate Filesystem Disabled');
+        }
     }
 
     public function cache()
@@ -41,57 +62,45 @@ trait ContainerTrait
 
     }
 
+    public function db()
+    {
+        if ($this->bound('db')) {
+            return $this['db'];
+        } else {
+            throw new \Exception('Illuminate Database Disabled');
+        }
+    }
+
+    public function schema()
+    {
+        if ($this->bound('db')) {
+            return $this['db']->connection()->getSchemaBuilder();
+        } else {
+            throw new \Exception('Illuminate Database Disabled');
+        }
+    }
+
     public function option()
     {
         return $this['plugin.option'];
     }
 
-    /**
-     * Access ViewFactory
-     * @return \Illuminate\View\Factory
-     */
-    public function viewFactory(){
-        return $this['view'];
-    }
-
-    /**
-     * Access View
-     * @return mixed
-     */
-    public function view($template, $parameters = array(), $status = 200)
+    public function view($view = null, $data = [], $mergeData = [])
     {
-        //Setup Template Variables
-        $data = array(
-            'request' => $this->request(),
-            'currentUserId' => get_current_user_id(),
-        );
-        if($this->bound('session')){
-	        $data = array_merge($data, $this->session()->getOldInput());
+        $viewFactory = $this['view'];
+        if (func_num_args() === 0) {
+            return $viewFactory;
         }
-        //Loop & Combine User Template Variables
-        foreach ($parameters as $parameter => $value) {
-            $data[$parameter] = $value;
-        }
-	    //Bind Template Variables to ViewRendered
-        $viewRendered = $this['view']->make($template, $data)->render();
-	    return $this->respond($viewRendered);
-    }
-
-    /**
-     * Send Response with CookieJar
-     * @return mixed
-     * end chain
-     */
-    public function respond($content = null, $status = 200)
-    {
-        if($this->bound('session')) {
-            $this->session()->save();
-        }
-        print new HtmlString($content);
+        return $viewFactory->make($view, $data, $mergeData);
     }
 
     public function admin()
     {
         return $this['plugin.admin'];
+    }
+
+    public function ajax()
+    {
+        return $this['plugin.ajax'];
     }
 }
