@@ -15,28 +15,27 @@ class DeveloperModeProvider extends ServiceProvider {
 		$slug = str_slug($namespace . '_dev');
 
 		if (is_admin()) {
-			//Setup Admin Panel
 			$this->plugin['plugin.admin']->addMenu([
-				'page_title' => $namespace,
-				'menu_title' => $namespace,
-				'capability' => 'manage_options', //$capability
-				'menu_slug' => $slug, //$menu_slug
+				'page_title' => $namespace . ' Debug',
+				'menu_title' => $namespace . ' Debug',
+				'capability' => 'manage_options',
+				'menu_slug' => $slug,
 				'controller' => 'WpPluginner\Framework\Controller\DevController@show'
 			]);
 		}
 		$this->plugin['plugin.admin']->addBarNode(
 			array(
 				'id' => $slug,
-				'title' => $namespace,
+				'title' => $namespace . ' Debug',
 				'href' => '?page=' . $slug . '&tab=config',
 				'meta' => array('class' => 'fooBar')
-			),
-			100
+			)
 		);
 		if ($this->plugin->bound('cache')) {
 			$this->plugin['plugin.admin']->addBarNode(array(
 				'id' => $slug . '_flush_objects',
 				'title' => 'Flush Objects',
+				'href' => '#',
 				'parent' => $slug,
 				'meta' => array(
 					'class' => $slug . '_flush_objects'
@@ -72,6 +71,11 @@ class DeveloperModeProvider extends ServiceProvider {
 			'href' => admin_url('admin.php?page=' . $slug . '&tab=config')
 		));
 
+		$this->plugin['plugin.ajax']->addAjax([
+		    'action' => $slug,
+		    'controller' => 'WpPluginner\Framework\Controller\DevController@show'
+		]);
+
 
 		//Add Framework Cache Ajax Script to Footer
 		add_action('wp_footer', function () use ($namespace, $slug){
@@ -80,10 +84,5 @@ class DeveloperModeProvider extends ServiceProvider {
 		add_action('admin_footer', function () use ($namespace, $slug) {
 			echo $this->plugin['view']->make('admin.framework.scripts', array('slug' => $slug));
 		}, 99);
-		//Add Framework Cache Ajax Controller
-		add_action("wp_ajax_" . $slug, function () {
-			$controller = new DevController($this->plugin);
-			return $controller->show();
-		});
 	}
 }

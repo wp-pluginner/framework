@@ -96,12 +96,11 @@ class DevController extends Controller
      */
     public function show()
     {
-
         if ($this->plugin['request']->ajax()) {
             $this->plugin['response']->setContent(html_entity_decode($this->attributes['messages'][0]))->send();
             exit;
         } else {
-            $this->plugin->view('admin.framework.settings', $this->attributes);
+            print $this->plugin->view('admin.framework.settings', $this->attributes);
         }
     }
 
