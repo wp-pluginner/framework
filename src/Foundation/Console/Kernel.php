@@ -2,68 +2,46 @@
 
 namespace WpPluginner\Framework\Foundation\Console;
 
-class Kernel
+use WpPluginner\Framework\Loader;
+
+abstract class Kernel
 {
+    protected $plugin;
+    protected $application;
 
-  protected $commands = [
-  ];
+    public function __construct( $namespace = null )
+    {
+        $this->plugin = $this->getPluginInstance($namespace);
+        $this->application = new Application();
+        $this->addFrameworkBaseCommands();
 
-  private $instances = [];
-
-  protected function line( $str )
-  {
-    echo "\033[38;5;82m" . $str;
-    echo "\033[0m\n";
-  }
-
-  public function __construct()
-  {
-    foreach ( $this->commands as $commandClass ) {
-      $instance                                                    = new $commandClass;
-      $this->instances[ $instance->context ][ $instance->command ] = $instance;
     }
-  }
 
-  public function hasCommands()
-  {
-    return ! empty( $this->instances );
-  }
-
-  public function displayHelp()
-  {
-    foreach ( $this->instances as $context => $commands ) {
-      if ( count( $commands ) > 1 ) {
-        $this->line( ' ' . $context );
-      }
-
-      foreach ( $commands as $key => $command ) {
-        $name = $command->command;
-        $name .= str_repeat( ' ', 22 - strlen( $name ) );
-        $description = $command->description;
-        $this->line( "  {$name} {$description}" );
-      }
+    protected function getPluginInstance($namespace)
+    {
+        $namespace = is_null($namespace) ? (new \ReflectionClass(get_class($this)))->getNamespaceName() : $namespace;
+        return Loader::getInstance($namespace);
     }
-  }
 
-  public function handle( $argv )
-  {
-    // wpkirk:sample
-    $commandConsole = $argv[ 0 ];
-
-    foreach ( $this->instances as $commands ) {
-
-      if ( in_array( $commandConsole, array_keys( $commands ) ) ) {
-        array_shift( $argv );
-        if ( in_array( '--help', $argv ) ) {
-          $commands[ $commandConsole ]->displayHelp();
-
-          return true;
+    protected function addFrameworkBaseCommands()
+    {
+        $classCommands = [
+            'WpPluginner\Framework\Console\Command\ClearCacheView'
+        ];
+        foreach ($classCommands as $classCommand) {
+            $this->application->add($this->plugin->make($classCommand));
         }
-        $commands[ $commandConsole ]->argv = $argv;
-        $commands[ $commandConsole ]->handle();
-
-        return true;
-      }
     }
-  }
+
+    public function handle()
+    {
+        return $this->application->run();
+    }
+
+
+
+    protected function addDefaultCommands()
+    {
+
+    }
 }
