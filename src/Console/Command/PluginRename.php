@@ -26,6 +26,18 @@ class PluginRename extends BaseCommand
         $this->rollback = $this->option('rollback');
         $this->loadPluginDevUtilities();
         if ($this->rollback) {
+            $pluginDevUtilities = $this->pluginDevUtilities;
+            if (
+                isset($pluginDevUtilities['current']) &&
+                isset($pluginDevUtilities['old']) &&
+                isset($pluginDevUtilities['replace-rollback'])
+            ) {
+                $this->pluginDevUtilities['old'] = $pluginDevUtilities['current'];
+                $this->pluginDevUtilities['current'] = $pluginDevUtilities['old'];
+                $this->pluginDevUtilities['replace'] = $pluginDevUtilities['replace-rollback'];
+            } else {
+                $this->error("File: developer.json is corrupted.");
+            }
 
         } else {
             $this->loadPluginUtilitiesToProcess();
@@ -39,6 +51,23 @@ class PluginRename extends BaseCommand
         if ($continue) {
             $this->renamePluginUtilities();
             $res = `composer dump-autoload --optimize`;
+
+            if (!$this->rollback) {
+                $replaceRollback = [];
+                if (
+                    isset($this->pluginDevUtilities['replace']) &&
+                    is_array($this->pluginDevUtilities['replace'])
+                ) {
+
+                    foreach ($this->pluginDevUtilities['replace'] as $key => $val) {
+                        $replaceRollback[$val] = $key;
+                    }
+                    $replaceRollback = array_reverse($replaceRollback);
+                }
+                $this->pluginDevUtilities['replace-rollback'] = $replaceRollback;
+            } else {
+                unset($this->pluginDevUtilities['old']);
+            }
             $this->plugin['files']->put($this->developerFile, json_encode($this->pluginDevUtilities, JSON_PRETTY_PRINT));
         }
     }
