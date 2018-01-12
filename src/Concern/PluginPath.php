@@ -14,6 +14,11 @@ trait PluginPath
         return $this->pluginPath . 'app';
     }
 
+    public function getBootstrapPathAttribute()
+    {
+        return $this->pluginPath . 'bootstrap';
+    }
+
     public function getConfigPathAttribute()
     {
         return $this->pluginPath . 'config';
