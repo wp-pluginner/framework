@@ -2,16 +2,13 @@
 
 namespace WpPluginner\Framework;
 
-use WpPluginner\Framework\Container;
 use WpPluginner\Framework\Provider\ConfigServiceProvider;
-use WpPluginner\Framework\Provider\ViewServiceProvider;
 use WpPluginner\Framework\Provider\DatabaseServiceProvider;
+use WpPluginner\Framework\Provider\DeveloperServiceProvider;
 use WpPluginner\Framework\Provider\PluginOptionsServiceProvider;
+use WpPluginner\Framework\Provider\ViewServiceProvider;
 use WpPluginner\Framework\Provider\WpServiceProvider;
-use WpPluginner\Framework\Provider\DeveloperModeProvider;
 
-use WpPluginner\Framework\Database\WordPressOption;
-use WpPluginner\Framework\Support\View;
 
 use Illuminate\Filesystem\FilesystemServiceProvider;
 use Illuminate\Events\EventServiceProvider;
@@ -45,7 +42,7 @@ class Loader
     protected function bootFramework()
     {
 
-        $this->plugin = new WpPluginner($this->file);
+        $this->plugin = new Container($this->file);
         with(new ConfigServiceProvider($this->plugin))->register();
 
         with(new FilesystemServiceProvider($this->plugin))->register();
@@ -120,12 +117,8 @@ class Loader
     {
         try {
 
-            if ($slug = $this->plugin['config']->get('plugin.slug',false)) {
-                do_action($slug . '_action_init_before', $this->plugin);
-            }
-
             if ($slug = $this->plugin['config']->get('plugin.development',false)) {
-                with(new DeveloperModeProvider($this->plugin))->register();
+                with(new DeveloperServiceProvider($this->plugin))->register();
             }
     		if ($this->plugin->bound('router')) {
                 $this->plugin->loadRoutes();
@@ -143,9 +136,6 @@ class Loader
                 }
     		}
 
-            if ($slug = $this->plugin['config']->get('plugin.slug',false)) {
-                do_action($slug . '_action_init_after', $this->plugin);
-            }
 
 	    }catch (\Exception $e) {
 		    $this->plugin->reportException($e);

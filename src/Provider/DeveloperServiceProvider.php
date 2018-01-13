@@ -5,7 +5,7 @@ namespace WpPluginner\Framework\Provider;
 use WpPluginner\Framework\Foundation\ServiceProvider;
 use WpPluginner\Framework\Controller\DevController;
 
-class DeveloperModeProvider extends ServiceProvider {
+class DeveloperServiceProvider extends ServiceProvider {
 
 	public function register(){
 

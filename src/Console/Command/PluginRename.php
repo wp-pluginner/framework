@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class PluginRename extends BaseCommand
 {
-    protected $signature = 'plugin:rename  {--name=} {--slug=} {--namespace=} {--rollback}';
+    protected $signature = 'plugin:rename  {--name=} {--slug=} {--namespace=} {--rollback} {--force}';
     protected $description = 'Rename Plugin Utilities.';
     protected $help = 'This command allows you to rename plugin utilities...';
 
@@ -166,10 +166,10 @@ class PluginRename extends BaseCommand
     protected function loadPluginUtilitiesToProcess()
     {
         $this->pluginDevUtilities['old'] = [
-            'name' => $this->plugin['config']->get('plugin.name','new_one'),
-            'slug' => $this->plugin['config']->get('plugin.slug','NEW_ONE'),
-            'variable' => strtoupper($this->plugin['config']->get('plugin.slug','NEW_ONE')),
-            'namespace' => $this->plugin['config']->get('plugin.namespace','New One')
+            'name' => $this->plugin['config']->get('plugin.name','wp_pluginner'),
+            'slug' => $this->plugin['config']->get('plugin.slug','WP_PLUGINNER'),
+            'variable' => strtoupper($this->plugin['config']->get('plugin.slug','WP_PLUGINNER')),
+            'namespace' => $this->plugin['config']->get('plugin.namespace','WP Pluginner')
         ];
         $this->checkPluginNewName($this->option('name'));
         $this->checkPluginNewSlug($this->option('slug'));
@@ -206,6 +206,7 @@ class PluginRename extends BaseCommand
 
     protected function printConfirmablePluginUtilitiesTable()
     {
+        if ($this->option('force')) return true;
         $this->table(
             ['#', 'Current', 'Replace With'],
             [
@@ -235,6 +236,7 @@ class PluginRename extends BaseCommand
             isset($this->pluginDevUtilities['replace']) &&
             is_array($this->pluginDevUtilities['replace'])
         ) {
+            if ($this->option('force')) return true;
             $data = [];
             foreach ($this->pluginDevUtilities['replace'] as $key => $value) {
                 $data[] = [ $key, $value ];

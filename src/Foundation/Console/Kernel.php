@@ -8,13 +8,14 @@ abstract class Kernel
 {
     protected $plugin;
     protected $application;
+    protected $commands = [];
 
     public function __construct( $namespace = null )
     {
         $this->plugin = $this->getPluginInstance($namespace);
         $this->application = new Application();
         $this->addFrameworkBaseCommands();
-
+        $this->addPluginCommands();
     }
 
     protected function getPluginInstance($namespace)
@@ -41,8 +42,12 @@ abstract class Kernel
 
 
 
-    protected function addDefaultCommands()
+    protected function addPluginCommands()
     {
-
+        if (is_array($this->commands)) {
+            foreach ($this->commands as $classCommand) {
+                $this->application->add($this->plugin->make($classCommand));
+            }
+        }
     }
 }

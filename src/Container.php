@@ -4,12 +4,12 @@ namespace WpPluginner\Framework;
 
 use WpPluginner\Framework\Debug\ExceptionHandler;
 
-use Illuminate\Container\Container;
 use Illuminate\Support\Str;
+use Illuminate\Container\Container as IlluminateContainer;
 use Illuminate\Contracts\Debug\ExceptionHandler as IlluminateExceptionHandler;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 
-class WpPluginner extends Container
+class Container extends IlluminateContainer
 {
     use Concern\ContainerTrait,
         Concern\PluginPath,
@@ -61,6 +61,8 @@ class WpPluginner extends Container
 
     /**
 	 * Bind Exceptions Class to Container
+     *
+     * @return void
 	 */
 	private function bindExceptions()
 	{
