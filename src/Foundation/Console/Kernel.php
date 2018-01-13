@@ -27,8 +27,8 @@ abstract class Kernel
     protected function addFrameworkBaseCommands()
     {
         $classCommands = [
-            'WpPluginner\Framework\Console\Command\ClearCacheView',
-            'WpPluginner\Framework\Console\Command\PluginRename',
+            'WpPluginner\Framework\Console\Command\Clear\View',
+            'WpPluginner\Framework\Console\Command\Rename',
         ];
         foreach ($classCommands as $classCommand) {
             $this->application->add($this->plugin->make($classCommand));

@@ -6,11 +6,10 @@ use WpPluginner\Framework\Foundation\Console\Command as BaseCommand;
 
 use Illuminate\Support\Str;
 
-class PluginRename extends BaseCommand
+class Rename extends BaseCommand
 {
     protected $signature = 'plugin:rename  {--name=} {--slug=} {--namespace=} {--rollback} {--force}';
     protected $description = 'Rename Plugin Utilities.';
-    protected $help = 'This command allows you to rename plugin utilities...';
 
     protected $pluginDevUtilities = [];
     protected $developerFile;

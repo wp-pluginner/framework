@@ -19,7 +19,7 @@ abstract class Command extends SymfonyCommand
     /**
      * The WpPluginner application instance.
      *
-     * @var \WpPluginner\Framework\WpPluginner
+     * @var \WpPluginner\Framework\Container
      */
     protected $plugin;
 

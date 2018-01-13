@@ -1,17 +1,16 @@
 <?php
 
-namespace WpPluginner\Framework\Console\Command;
+namespace WpPluginner\Framework\Console\Command\Clear;
 
 use WpPluginner\Framework\Foundation\Console\Command as BaseCommand;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ClearCacheView extends BaseCommand
+class View extends BaseCommand
 {
-    protected $signature = 'view:clear';
-    protected $description = 'Clear view files compiled.';
-    protected $help = 'This command allows you to create a user...';
+    protected $signature = 'plugin:clear:view';
+    protected $description = 'Clear compiled view files.';
 
     /**
      * Execute the console command.
