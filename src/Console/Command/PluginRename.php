@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class PluginRename extends BaseCommand
 {
-    protected $signature = 'plugin:rename  {--slug=} {--namespace=} {--rollback}';
+    protected $signature = 'plugin:rename  {--name=} {--slug=} {--namespace=} {--rollback}';
     protected $description = 'Rename Plugin Utilities.';
     protected $help = 'This command allows you to rename plugin utilities...';
 
@@ -30,6 +30,7 @@ class PluginRename extends BaseCommand
             if (
                 isset($pluginDevUtilities['current']) &&
                 isset($pluginDevUtilities['old']) &&
+                isset($pluginDevUtilities['replace']) &&
                 isset($pluginDevUtilities['replace-rollback'])
             ) {
                 $this->pluginDevUtilities['old'] = $pluginDevUtilities['current'];
@@ -37,6 +38,7 @@ class PluginRename extends BaseCommand
                 $this->pluginDevUtilities['replace'] = $pluginDevUtilities['replace-rollback'];
             } else {
                 $this->error("File: developer.json is corrupted.");
+                $continue = false;
             }
 
         } else {
@@ -51,6 +53,9 @@ class PluginRename extends BaseCommand
         if ($continue) {
             $this->renamePluginUtilities();
             $res = `composer dump-autoload --optimize`;
+            if ($this->pluginDevUtilities['old']['slug'] != $this->pluginDevUtilities['current']['slug']) {
+                $res = `npm run dev`;
+            }
 
             if (!$this->rollback) {
                 $replaceRollback = [];
@@ -66,9 +71,18 @@ class PluginRename extends BaseCommand
                 }
                 $this->pluginDevUtilities['replace-rollback'] = $replaceRollback;
             } else {
+                $this->pluginDevUtilities['replace'] = $pluginDevUtilities['replace'];
                 unset($this->pluginDevUtilities['old']);
+                unset($this->pluginDevUtilities['replace-rollback']);
             }
             $this->plugin['files']->put($this->developerFile, json_encode($this->pluginDevUtilities, JSON_PRETTY_PRINT));
+
+            $this->info("Process Complete... Check the result from your Wordpress Dashboard.");
+            if (!$this->rollback) {
+                if ($this->confirm("Type yes to rolling back, if fatal error occured.")) {
+                    $this->call("plugin:rename", ['--rollback' => true]);
+                }
+            }
         }
     }
 
@@ -104,6 +118,7 @@ class PluginRename extends BaseCommand
             'composer.json',
             'composer.lock',
             'README.md',
+            'artisan',
         ];
 
         $totalFiles = 0;
@@ -151,12 +166,23 @@ class PluginRename extends BaseCommand
     protected function loadPluginUtilitiesToProcess()
     {
         $this->pluginDevUtilities['old'] = [
-            'slug' => $this->plugin['config']->get('plugin.slug','wp_pluginner'),
-            'variable' => strtoupper($this->plugin['config']->get('plugin.slug','wp_pluginner')),
-            'namespace' => $this->plugin['config']->get('plugin.namespace','WpPluginner')
+            'name' => $this->plugin['config']->get('plugin.name','new_one'),
+            'slug' => $this->plugin['config']->get('plugin.slug','NEW_ONE'),
+            'variable' => strtoupper($this->plugin['config']->get('plugin.slug','NEW_ONE')),
+            'namespace' => $this->plugin['config']->get('plugin.namespace','New One')
         ];
+        $this->checkPluginNewName($this->option('name'));
         $this->checkPluginNewSlug($this->option('slug'));
         $this->checkPluginNewNamespace($this->option('namespace'));
+    }
+
+    protected function checkPluginNewName( $name = false )
+    {
+        if (!$name) {
+            $name = $this->ask('Plugin Name');
+        }
+        $this->pluginDevUtilities['current']['name'] = $name;
+
     }
 
     protected function checkPluginNewSlug( $slug = false )
@@ -183,6 +209,11 @@ class PluginRename extends BaseCommand
         $this->table(
             ['#', 'Current', 'Replace With'],
             [
+                [
+                    'Plugin Name',
+                    $this->pluginDevUtilities['old']['name'],
+                    $this->pluginDevUtilities['current']['name'],
+                ],
                 [
                     'Plugin Slug',
                     $this->pluginDevUtilities['old']['slug'],
@@ -213,8 +244,10 @@ class PluginRename extends BaseCommand
                 $data
             );
             return $this->confirm('Do you wish to continue?');
+        } else {
+            $this->pluginDevUtilities['replace'] = [];
         }
-        $this->pluginDevUtilities['replace'] = [];
+
         return true;
 
     }
