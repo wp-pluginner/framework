@@ -2,7 +2,7 @@
   "name": "wp-pluginner/framework",
   "homepage": "https://github.com/wp-pluginner/framework",
   "type": "project",
-  "description": "Core Code for WP Pluginner",
+  "description": "Core Code for WP-Pluginner",
   "keywords": [ "wordpress", "laravel", "framework", "plugins", "wp-pluginner" ],
   "license": "MIT",
   "authors": [

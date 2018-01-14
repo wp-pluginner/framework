@@ -2,7 +2,6 @@
 
 namespace WpPluginium\Framework\Controller;
 
-use WpPluginium\Framework\WpPluginner;
 use WpPluginium\Framework\Foundation\Controller;
 
 class DevController extends Controller

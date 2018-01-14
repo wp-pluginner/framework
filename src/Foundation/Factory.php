@@ -12,7 +12,7 @@ abstract class Factory
     /**
      * Constructor
      * Add Plugin Container
-     * @param $plugin \WpPluginium\Framework\WpPluginner
+     * @param $plugin \WpPluginium\Framework\Container
      * @return void
      */
     public function __construct($plugin)

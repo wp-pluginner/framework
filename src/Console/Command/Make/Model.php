@@ -40,7 +40,7 @@ class Model extends GeneratorCommand
         $table_name = $this->option('table');
         if (!$table_name) {
             $class = str_replace($this->getNamespace($name).'\\', '', $name);
-            $table_name = strtolower($this->plugin['config']->get('slug', 'wp_pluginner') . '_' .$class);
+            $table_name = strtolower($this->plugin['config']->get('slug') . '_' .$class);
         }
         return str_replace('DummyTableName', $table_name, parent::buildClass($name));
     }

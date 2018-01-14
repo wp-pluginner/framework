@@ -65,7 +65,7 @@ class ConfigServiceProvider extends ServiceProvider
                 'expire_on_close' => true,
                 'encrypt' => false, //Requires Encryption Enabled
                 'files' => $this->plugin->base_path . '/storage/plugin/session',
-                'cookie' => $this->plugin['config']->get('plugin.namespace','WpPluginner'),
+                'cookie' => $this->plugin['config']->get('plugin.namespace'),
                 'path' => '/',
                 'domain' => '.'.parse_url(get_bloginfo('url'))['host'], //Evaluates to .domain.com
                 'secure' => is_ssl(),

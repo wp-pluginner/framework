@@ -167,10 +167,10 @@ class Rename extends BaseCommand
     protected function loadPluginUtilitiesToProcess()
     {
         $this->pluginDevUtilities['old'] = [
-            'name' => $this->plugin['config']->get('plugin.name','wp_pluginner'),
-            'slug' => $this->plugin['config']->get('plugin.slug','WP_PLUGINNER'),
-            'variable' => strtoupper($this->plugin['config']->get('plugin.slug','WP_PLUGINNER')),
-            'namespace' => $this->plugin['config']->get('plugin.namespace','WP Pluginner')
+            'name' => $this->plugin['config']->get('plugin.name'),
+            'slug' => $this->plugin['config']->get('plugin.slug'),
+            'variable' => strtoupper($this->plugin['config']->get('plugin.slug')),
+            'namespace' => $this->plugin['config']->get('plugin.namespace')
         ];
         $this->checkPluginNewName($this->option('name'));
         $this->checkPluginNewSlug($this->option('slug'));
@@ -278,7 +278,7 @@ class Rename extends BaseCommand
             ['name', null, InputOption::VALUE_OPTIONAL, 'New plugin name.'],
             ['slug', null, InputOption::VALUE_OPTIONAL, 'New plugin slug, Only lowercase and underscore ( _ ).'],
             ['namespace', null, InputOption::VALUE_OPTIONAL, 'New plugin namespace, Only letters ( no space, no special chars ).'],
-            ['rollback', null, InputOption::VALUE_NONE, 'Rolling back the codes to WP Pluginner.'],
+            ['rollback', null, InputOption::VALUE_NONE, 'Rolling back the codes to WP-Pluginner.'],
             ['force', null, InputOption::VALUE_NONE, 'Do not show confirmation, just execute the cammand.'],
         ];
     }

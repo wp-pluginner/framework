@@ -16,10 +16,10 @@ class AdminFactory extends Factory
     public function addMenu( $attributes = [], $priority = 1 )
     {
         $defaultAttributes = [
-            'page_title' => $this->plugin['config']->get('plugin.namespace','WP Pluginner'),
-            'menu_title' => $this->plugin['config']->get('plugin.namespace','WP Pluginner'),
+            'page_title' => $this->plugin['config']->get('plugin.namespace'),
+            'menu_title' => $this->plugin['config']->get('plugin.namespace'),
             'capability' => 'read',
-            'menu_slug' => $this->plugin['config']->get('plugin.slug','wp-pluginner'),
+            'menu_slug' => $this->plugin['config']->get('plugin.slug'),
             'icon_url' => '',
             'position' => null,
             'controller' => null,
@@ -50,10 +50,10 @@ class AdminFactory extends Factory
     public function addSubMenu( $attributes = [], $priority = 10 )
     {
         $defaultAttributes = [
-            'page_title' => $this->plugin['config']->get('plugin.namespace','WP Pluginner'),
-            'menu_title' => $this->plugin['config']->get('plugin.namespace','WP Pluginner'),
+            'page_title' => $this->plugin['config']->get('plugin.namespace'),
+            'menu_title' => $this->plugin['config']->get('plugin.namespace'),
             'capability' => 'read',
-            'menu_slug' => $this->plugin['config']->get('plugin.slug','wp-pluginner'),
+            'menu_slug' => $this->plugin['config']->get('plugin.slug'),
             'parent_slug' => '',
             'controller' => '',
         ];

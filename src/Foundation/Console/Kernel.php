@@ -36,7 +36,7 @@ abstract class Kernel
             $this->plugin->when($classCommand)
                 ->needs('$namespace')
                 ->give(function(){
-                    return $this->plugin['config']->get('plugin.namespace', 'WpPluginner');
+                    return $this->plugin['config']->get('plugin.namespace');
                 });
             $this->application->add($this->plugin->make($classCommand));
         }

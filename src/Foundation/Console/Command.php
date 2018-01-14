@@ -17,7 +17,7 @@ use Symfony\Component\Console\Command\Command as SymfonyCommand;
 abstract class Command extends SymfonyCommand
 {
     /**
-     * The WpPluginner application instance.
+     * The WP-Pluginner plugin instance.
      *
      * @var \WpPluginium\Framework\Container
      */

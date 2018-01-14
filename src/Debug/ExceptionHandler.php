@@ -56,7 +56,7 @@ class ExceptionHandler extends SymfonyExceptionHandler implements ExceptionHandl
         $message = '<h2>' . $exception->getMessage() . '</h2>';
         $message .= '<h4>' . $exception->getFile() . ' ' . $exception->getLine() . '</h4>';
         $message .= '<pre style="overflow-x: auto">' . $exception->getTraceAsString() . '</pre>';
-        $message .= '<p><strong>WP Pluginner</strong> - <em>Awesome Wordpress Plugin Framework for Laravel developers</em>';
+        $message .= '<p><strong>WP-Pluginner</strong> - <em>Awesome Wordpress Plugin Framework for Laravel developers</em>';
         $message .= '<br/><a href="https://github.com/wp-pluginner/wp-pluginner" style="font-size: 12px;">https://github.com/wp-pluginner/wp-pluginner</a></p>';
         $message .= '<style type="text/css">#error-page{ max-width:90% !important;}</style>';
         wp_die($message);

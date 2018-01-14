@@ -11,9 +11,9 @@ class DeveloperServiceProvider extends ServiceProvider {
 
 		$this->plugin['view']->addLocation(realpath(__DIR__ . '/../resource/view/'));
 
-		$namespace = $this->plugin['config']->get('plugin.namespace', 'WpPluginner');
-		$name = $this->plugin['config']->get('plugin.name', 'WP Pluginner');
-		$slug = $this->plugin['config']->get('plugin.slug', 'wp_pluginner') . '_dev';
+		$namespace = $this->plugin['config']->get('plugin.namespace');
+		$name = $this->plugin['config']->get('plugin.name');
+		$slug = $this->plugin['config']->get('plugin.slug') . '_dev';
 
 		if (is_admin()) {
 			$this->plugin['plugin.admin']->addMenu([
