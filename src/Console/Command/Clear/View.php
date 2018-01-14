@@ -1,8 +1,8 @@
 <?php
 
-namespace WpPluginner\Framework\Console\Command\Clear;
+namespace WpPluginium\Framework\Console\Command\Clear;
 
-use WpPluginner\Framework\Foundation\Console\Command as BaseCommand;
+use WpPluginium\Framework\Foundation\Console\Command as BaseCommand;
 
 class View extends BaseCommand
 {

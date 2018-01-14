@@ -1,6 +1,6 @@
 <?php
 
-namespace WpPluginner\Framework\Concern;
+namespace WpPluginium\Framework\Concern;
 
 use Illuminate\Support\HtmlString;
 use Symfony\Component\Debug\Exception\FatalThrowableError;

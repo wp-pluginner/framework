@@ -1,8 +1,8 @@
 <?php
 
-namespace WpPluginner\Framework\Console\Command;
+namespace WpPluginium\Framework\Console\Command;
 
-use WpPluginner\Framework\Foundation\Console\Command as BaseCommand;
+use WpPluginium\Framework\Foundation\Console\Command as BaseCommand;
 
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;

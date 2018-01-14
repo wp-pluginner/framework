@@ -1,8 +1,8 @@
 <?php
 
-namespace WpPluginner\Framework\Console\Command\Make;
+namespace WpPluginium\Framework\Console\Command\Make;
 
-use WpPluginner\Framework\Foundation\Console\GeneratorCommand;
+use WpPluginium\Framework\Foundation\Console\GeneratorCommand;
 
 use Illuminate\Support\Str;
 

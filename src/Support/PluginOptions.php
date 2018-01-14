@@ -1,8 +1,8 @@
 <?php
 
-namespace WpPluginner\Framework\Support;
+namespace WpPluginium\Framework\Support;
 
-use WpPluginner\Framework\Model\WpOption;
+use WpPluginium\Framework\Model\WpOption;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 

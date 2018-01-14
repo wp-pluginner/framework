@@ -1,8 +1,8 @@
 <?php
 
-namespace WpPluginner\Framework\Foundation\Console;
+namespace WpPluginium\Framework\Foundation\Console;
 
-use WpPluginner\Framework\Loader;
+use WpPluginium\Framework\Loader;
 
 abstract class Kernel
 {
@@ -27,12 +27,17 @@ abstract class Kernel
     protected function addFrameworkBaseCommands()
     {
         $classCommands = [
-            'WpPluginner\Framework\Console\Command\Rename',
-            'WpPluginner\Framework\Console\Command\Clear\View',
-            'WpPluginner\Framework\Console\Command\Make\Controller',
-            'WpPluginner\Framework\Console\Command\Make\Model',
+            'WpPluginium\Framework\Console\Command\Rename',
+            'WpPluginium\Framework\Console\Command\Clear\View',
+            'WpPluginium\Framework\Console\Command\Make\Controller',
+            'WpPluginium\Framework\Console\Command\Make\Model',
         ];
         foreach ($classCommands as $classCommand) {
+            $this->plugin->when($classCommand)
+                ->needs('$namespace')
+                ->give(function(){
+                    return $this->plugin['config']->get('plugin.namespace', 'WpPluginner');
+                });
             $this->application->add($this->plugin->make($classCommand));
         }
     }

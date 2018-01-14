@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use WpPluginner\Framework\Foundation\Model;
+use WpPluginium\Framework\Foundation\Model;
 
 class DummyClass extends Model
 {

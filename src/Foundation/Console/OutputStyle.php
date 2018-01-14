@@ -1,6 +1,6 @@
 <?php
 
-namespace WpPluginner\Framework\Foundation\Console;
+namespace WpPluginium\Framework\Foundation\Console;
 
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\InputInterface;

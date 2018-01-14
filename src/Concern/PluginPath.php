@@ -1,6 +1,6 @@
 <?php
 
-namespace WpPluginner\Framework\Concern;
+namespace WpPluginium\Framework\Concern;
 
 trait PluginPath
 {

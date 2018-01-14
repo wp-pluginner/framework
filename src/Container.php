@@ -1,8 +1,8 @@
 <?php
 
-namespace WpPluginner\Framework;
+namespace WpPluginium\Framework;
 
-use WpPluginner\Framework\Debug\ExceptionHandler;
+use WpPluginium\Framework\Debug\ExceptionHandler;
 
 use Illuminate\Support\Str;
 use Illuminate\Container\Container as IlluminateContainer;
@@ -68,7 +68,7 @@ class Container extends IlluminateContainer
 	{
 		$this->singleton(
 			'Illuminate\Contracts\Debug\ExceptionHandler',
-			'WpPluginner\Framework\Debug\ExceptionHandler'
+			'WpPluginium\Framework\Debug\ExceptionHandler'
 		);
 	}
 
@@ -80,7 +80,7 @@ class Container extends IlluminateContainer
 	 */
 	public function reportException(\Exception $e)
 	{
-		$this['WpPluginner\Framework\Debug\ExceptionHandler']->report($e);
+		$this['WpPluginium\Framework\Debug\ExceptionHandler']->report($e);
 	}
 
 	/**
@@ -92,7 +92,7 @@ class Container extends IlluminateContainer
 	 */
 	public function renderException($request, \Exception $e)
 	{
-		$this['WpPluginner\Framework\Debug\ExceptionHandler']->render($request, $e);
+		$this['WpPluginium\Framework\Debug\ExceptionHandler']->render($request, $e);
 	}
 
     /**

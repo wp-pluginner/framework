@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use WpPluginner\Framework\Foundation\Controller as BaseController;
+use WpPluginium\Framework\Foundation\Controller as BaseController;
 
 class DummyClass extends BaseController
 {

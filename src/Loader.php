@@ -1,13 +1,13 @@
 <?php
 
-namespace WpPluginner\Framework;
+namespace WpPluginium\Framework;
 
-use WpPluginner\Framework\Provider\ConfigServiceProvider;
-use WpPluginner\Framework\Provider\DatabaseServiceProvider;
-use WpPluginner\Framework\Provider\DeveloperServiceProvider;
-use WpPluginner\Framework\Provider\PluginOptionsServiceProvider;
-use WpPluginner\Framework\Provider\ViewServiceProvider;
-use WpPluginner\Framework\Provider\WpServiceProvider;
+use WpPluginium\Framework\Provider\ConfigServiceProvider;
+use WpPluginium\Framework\Provider\DatabaseServiceProvider;
+use WpPluginium\Framework\Provider\DeveloperServiceProvider;
+use WpPluginium\Framework\Provider\PluginOptionsServiceProvider;
+use WpPluginium\Framework\Provider\ViewServiceProvider;
+use WpPluginium\Framework\Provider\WpServiceProvider;
 
 
 use Illuminate\Filesystem\FilesystemServiceProvider;

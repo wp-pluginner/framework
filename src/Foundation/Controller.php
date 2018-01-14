@@ -1,9 +1,9 @@
 <?php
 
-namespace WpPluginner\Framework\Foundation;
+namespace WpPluginium\Framework\Foundation;
 
-use WpPluginner\Framework\Loader;
-use WpPluginner\Framework\Support\View;
+use WpPluginium\Framework\Loader;
+use WpPluginium\Framework\Support\View;
 
 use Illuminate\Support\Str;
 use Illuminate\Routing\Controller as BaseController;

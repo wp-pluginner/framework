@@ -30,7 +30,7 @@
   },
   "autoload": {
     "psr-4": {
-      "WpPluginner\\Framework\\": "src/"
+      "WpPluginium\\Framework\\": "src/"
     }
   }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace WpPluginner\Framework\Provider;
+namespace WpPluginium\Framework\Provider;
 
-use WpPluginner\Framework\Foundation\ServiceProvider;
-use WpPluginner\Framework\Support\PluginOptions;
+use WpPluginium\Framework\Foundation\ServiceProvider;
+use WpPluginium\Framework\Support\PluginOptions;
 
 class PluginOptionsServiceProvider extends ServiceProvider
 {

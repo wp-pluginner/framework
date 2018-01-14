@@ -1,6 +1,6 @@
 <?php
 
-namespace WpPluginner\Framework\Foundation\Console;
+namespace WpPluginium\Framework\Foundation\Console;
 
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
@@ -26,9 +26,9 @@ abstract class GeneratorCommand extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct( $namespace = null )
     {
-        parent::__construct();
+        parent::__construct($namespace);
 
         $this->files = $this->plugin['files'];
     }

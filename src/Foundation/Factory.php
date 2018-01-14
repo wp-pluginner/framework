@@ -1,6 +1,6 @@
 <?php
 
-namespace WpPluginner\Framework\Foundation;
+namespace WpPluginium\Framework\Foundation;
 
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 
@@ -12,7 +12,7 @@ abstract class Factory
     /**
      * Constructor
      * Add Plugin Container
-     * @param $plugin \WpPluginner\Framework\WpPluginner
+     * @param $plugin \WpPluginium\Framework\WpPluginner
      * @return void
      */
     public function __construct($plugin)

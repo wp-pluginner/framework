@@ -1,9 +1,9 @@
 <?php
 
-namespace WpPluginner\Framework\Provider;
+namespace WpPluginium\Framework\Provider;
 
-use WpPluginner\Framework\Foundation\ServiceProvider;
-use WpPluginner\Framework\Controller\DevController;
+use WpPluginium\Framework\Foundation\ServiceProvider;
+use WpPluginium\Framework\Controller\DevController;
 
 class DeveloperServiceProvider extends ServiceProvider {
 
@@ -21,7 +21,7 @@ class DeveloperServiceProvider extends ServiceProvider {
 				'menu_title' => $name . ' Debug',
 				'capability' => 'manage_options',
 				'menu_slug' => $slug,
-				'controller' => 'WpPluginner\Framework\Controller\DevController@show'
+				'controller' => 'WpPluginium\Framework\Controller\DevController@show'
 			]);
 		}
 		$this->plugin['plugin.admin']->addBarNode(
@@ -74,7 +74,7 @@ class DeveloperServiceProvider extends ServiceProvider {
 
 		$this->plugin['plugin.ajax']->addAjax([
 		    'action' => $slug,
-		    'controller' => 'WpPluginner\Framework\Controller\DevController@show'
+		    'controller' => 'WpPluginium\Framework\Controller\DevController@show'
 		]);
 
 

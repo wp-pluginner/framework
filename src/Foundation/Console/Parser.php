@@ -1,6 +1,6 @@
 <?php
 
-namespace WpPluginner\Framework\Foundation\Console;
+namespace WpPluginium\Framework\Foundation\Console;
 
 use Illuminate\Support\Str;
 use InvalidArgumentException;

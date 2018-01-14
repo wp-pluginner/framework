@@ -1,6 +1,6 @@
 <?php
 
-namespace WpPluginner\Framework\Debug;
+namespace WpPluginium\Framework\Debug;
 
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;

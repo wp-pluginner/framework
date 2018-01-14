@@ -1,6 +1,6 @@
 <?php
 
-namespace WpPluginner\Framework\Foundation;
+namespace WpPluginium\Framework\Foundation;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace WpPluginner\Framework\Controller;
+namespace WpPluginium\Framework\Controller;
 
-use WpPluginner\Framework\WpPluginner;
-use WpPluginner\Framework\Foundation\Controller;
+use WpPluginium\Framework\WpPluginner;
+use WpPluginium\Framework\Foundation\Controller;
 
 class DevController extends Controller
 {

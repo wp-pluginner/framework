@@ -1,6 +1,6 @@
 <?php
 
-namespace WpPluginner\Framework\Factory;
+namespace WpPluginium\Framework\Factory;
 
 use Illumine\Framework\Support\Widget;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace WpPluginner\Framework\Model;
+namespace WpPluginium\Framework\Model;
 
-use WpPluginner\Framework\Foundation\Model;
+use WpPluginium\Framework\Foundation\Model;
 
 class WpOption extends Model {
 

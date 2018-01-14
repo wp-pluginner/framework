@@ -1,8 +1,8 @@
 <?php
 
-namespace WpPluginner\Framework\Provider;
+namespace WpPluginium\Framework\Provider;
 
-use WpPluginner\Framework\Foundation\ServiceProvider;
+use WpPluginium\Framework\Foundation\ServiceProvider;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Events\Dispatcher;

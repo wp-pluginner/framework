@@ -1,6 +1,6 @@
 <?php
 
-namespace WpPluginner\Framework\Foundation;
+namespace WpPluginium\Framework\Foundation;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Illuminate\Support\Str;

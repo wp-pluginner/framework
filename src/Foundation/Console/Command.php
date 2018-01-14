@@ -1,8 +1,8 @@
 <?php
 
-namespace WpPluginner\Framework\Foundation\Console;
+namespace WpPluginium\Framework\Foundation\Console;
 
-use WpPluginner\Framework\Loader;
+use WpPluginium\Framework\Loader;
 
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -19,7 +19,7 @@ abstract class Command extends SymfonyCommand
     /**
      * The WpPluginner application instance.
      *
-     * @var \WpPluginner\Framework\Container
+     * @var \WpPluginium\Framework\Container
      */
     protected $plugin;
 
@@ -90,7 +90,7 @@ abstract class Command extends SymfonyCommand
      *
      * @return void
      */
-    public function __construct()
+    public function __construct( $namespace = null )
     {
         // We will go ahead and set the name, description, and parameters on console
         // commands just to make things a little easier on the developer. This is
@@ -111,7 +111,7 @@ abstract class Command extends SymfonyCommand
         if (! isset($this->signature)) {
             $this->specifyParameters();
         }
-        $this->plugin = $this->getPluginInstance();
+        $this->plugin = $this->getPluginInstance($namespace);
     }
 
     /**
@@ -137,9 +137,9 @@ abstract class Command extends SymfonyCommand
         }
     }
 
-    protected function getPluginInstance()
+    protected function getPluginInstance($namespace = null)
     {
-        $namespace = (new \ReflectionClass(get_class($this)))->getNamespaceName();
+        $namespace = is_null($namespace) ? (new \ReflectionClass(get_class($this)))->getNamespaceName() : $namespace;
         return Loader::getInstance($namespace);
     }
 

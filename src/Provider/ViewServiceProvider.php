@@ -1,8 +1,8 @@
 <?php
 
-namespace WpPluginner\Framework\Provider;
+namespace WpPluginium\Framework\Provider;
 
-use WpPluginner\Framework\Foundation\ServiceProvider;
+use WpPluginium\Framework\Foundation\ServiceProvider;
 
 use Illuminate\View\Engines\PhpEngine;
 use Illuminate\View\Engines\FileEngine;

@@ -1,13 +1,13 @@
 <?php
 
-namespace WpPluginner\Framework\Provider;
+namespace WpPluginium\Framework\Provider;
 
-use WpPluginner\Framework\Foundation\ServiceProvider;
+use WpPluginium\Framework\Foundation\ServiceProvider;
 
-use WpPluginner\Framework\Factory\AdminFactory;
-use WpPluginner\Framework\Factory\AjaxFactory;
-use WpPluginner\Framework\Factories\ShortcodeFactory;
-use WpPluginner\Framework\Factories\WidgetFactory;
+use WpPluginium\Framework\Factory\AdminFactory;
+use WpPluginium\Framework\Factory\AjaxFactory;
+use WpPluginium\Framework\Factories\ShortcodeFactory;
+use WpPluginium\Framework\Factories\WidgetFactory;
 
 class WpServiceProvider extends ServiceProvider {
 

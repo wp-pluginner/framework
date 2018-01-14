@@ -1,8 +1,8 @@
 <?php
 
-namespace WpPluginner\Framework\Factory;
+namespace WpPluginium\Framework\Factory;
 
-use WpPluginner\Framework\Foundation\Factory;
+use WpPluginium\Framework\Foundation\Factory;
 
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 
