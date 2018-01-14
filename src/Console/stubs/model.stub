@@ -1,0 +1,12 @@
+<?php
+
+namespace DummyNamespace;
+
+use WpPluginner\Framework\Foundation\Model;
+
+class DummyClass extends Model
+{
+    protected $table = 'DummyTableName';
+    public $timestamps = false;
+    protected $guarded = ['id'];
+}

@@ -5,10 +5,11 @@ namespace WpPluginner\Framework\Console\Command;
 use WpPluginner\Framework\Foundation\Console\Command as BaseCommand;
 
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\InputOption;
 
 class Rename extends BaseCommand
 {
-    protected $signature = 'plugin:rename  {--name=} {--slug=} {--namespace=} {--rollback} {--force}';
+    protected $name = 'plugin:rename';
     protected $description = 'Rename Plugin Utilities.';
 
     protected $pluginDevUtilities = [];
@@ -113,17 +114,18 @@ class Rename extends BaseCommand
         }
 
         $files = [
-            'plugin.php',
-            'composer.json',
-            'composer.lock',
-            'README.md',
-            'artisan',
+            '/plugin.php',
+            '/functions.php',
+            '/composer.json',
+            '/composer.lock',
+            '/README.md',
+            '/artisan',
         ];
 
         $totalFiles = 0;
         $this->output->write("Processing Other Files...");
         foreach ($files as $key => $file) {
-            $totalFiles += $this->replacePluginUtilities($file, $replaceFrom, $replaceTo);
+            $totalFiles += $this->replacePluginUtilities($this->plugin->base_path . $file, $replaceFrom, $replaceTo);
         }
         $this->output->writeln("<info>OK ({$totalFiles} Files Processed)</info>");
     }
@@ -187,7 +189,7 @@ class Rename extends BaseCommand
     protected function checkPluginNewSlug( $slug = false )
     {
         if (!$slug) {
-            $slug = $this->ask('Plugin Slug ( Only lowercase and underscore (-) )');
+            $slug = $this->ask('Plugin Slug ( Only lowercase and underscore ( _ ) )');
         }
         $this->pluginDevUtilities['current']['slug'] = Str::slug($slug, '_');
         $this->pluginDevUtilities['current']['variable'] = strtoupper($this->pluginDevUtilities['current']['slug']);
@@ -253,8 +255,31 @@ class Rename extends BaseCommand
 
     }
 
-    protected function isJsonContent($string) {
+    /**
+     * Verify json content.
+     *
+     * @param  string  $string
+     *
+     * @return boolean
+     */
+    protected function isJsonContent( $string ) {
         json_decode($string);
         return (json_last_error() == JSON_ERROR_NONE);
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['name', null, InputOption::VALUE_OPTIONAL, 'New plugin name.'],
+            ['slug', null, InputOption::VALUE_OPTIONAL, 'New plugin slug, Only lowercase and underscore ( _ ).'],
+            ['namespace', null, InputOption::VALUE_OPTIONAL, 'New plugin namespace, Only letters ( no space, no special chars ).'],
+            ['rollback', null, InputOption::VALUE_NONE, 'Rolling back the codes to WP Pluginner.'],
+            ['force', null, InputOption::VALUE_NONE, 'Do not show confirmation, just execute the cammand.'],
+        ];
     }
 }

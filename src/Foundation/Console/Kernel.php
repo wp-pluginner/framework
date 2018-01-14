@@ -27,8 +27,10 @@ abstract class Kernel
     protected function addFrameworkBaseCommands()
     {
         $classCommands = [
-            'WpPluginner\Framework\Console\Command\Clear\View',
             'WpPluginner\Framework\Console\Command\Rename',
+            'WpPluginner\Framework\Console\Command\Clear\View',
+            'WpPluginner\Framework\Console\Command\Make\Controller',
+            'WpPluginner\Framework\Console\Command\Make\Model',
         ];
         foreach ($classCommands as $classCommand) {
             $this->application->add($this->plugin->make($classCommand));

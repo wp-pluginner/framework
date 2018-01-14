@@ -4,9 +4,6 @@ namespace WpPluginner\Framework\Console\Command\Clear;
 
 use WpPluginner\Framework\Foundation\Console\Command as BaseCommand;
 
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-
 class View extends BaseCommand
 {
     protected $signature = 'plugin:clear:view';

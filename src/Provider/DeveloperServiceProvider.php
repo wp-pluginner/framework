@@ -11,13 +11,14 @@ class DeveloperServiceProvider extends ServiceProvider {
 
 		$this->plugin['view']->addLocation(realpath(__DIR__ . '/../resource/view/'));
 
-		$namespace = $this->plugin['config']->get('plugin.namespace');
-		$slug = str_slug($namespace . '_dev');
+		$namespace = $this->plugin['config']->get('plugin.namespace', 'WpPluginner');
+		$name = $this->plugin['config']->get('plugin.name', 'WP Pluginner');
+		$slug = $this->plugin['config']->get('plugin.slug', 'wp_pluginner') . '_dev';
 
 		if (is_admin()) {
 			$this->plugin['plugin.admin']->addMenu([
-				'page_title' => $namespace . ' Debug',
-				'menu_title' => $namespace . ' Debug',
+				'page_title' => $name . ' Debug',
+				'menu_title' => $name . ' Debug',
 				'capability' => 'manage_options',
 				'menu_slug' => $slug,
 				'controller' => 'WpPluginner\Framework\Controller\DevController@show'
@@ -26,7 +27,7 @@ class DeveloperServiceProvider extends ServiceProvider {
 		$this->plugin['plugin.admin']->addBarNode(
 			array(
 				'id' => $slug,
-				'title' => $namespace . ' Debug',
+				'title' => $name . ' Debug',
 				'href' => '?page=' . $slug . '&tab=config',
 				'meta' => array('class' => 'fooBar')
 			)
